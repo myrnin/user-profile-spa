@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import CreateProfile from "./components/CreateProfile";
 import ViewProfile from "./components/ViewProfile";
 import EditProfile from "./components/EditProfile";
+import DeleteProfile from "./components/DeleteProfile";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Route path="/create-profile" element={<CreateProfile />} />
         <Route path="/view-profile" element={<ViewProfile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        {/* Add more routes as needed */}
+        <Route path="/delete-profile" element={<DeleteProfile />} />
       </Routes>
     </Router>
   );

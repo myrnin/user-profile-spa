@@ -22,7 +22,7 @@ const ViewProfile = () => {
       <p>Phone Number: {phoneNumber}</p>
       <p>Favorite Color: {favoriteColor}</p>
       <button onClick={() => navigate("/edit-profile")}>Edit Profile</button>
-      <button onClick={() => navigate("/delete", { state: { email } })}>
+      <button onClick={() => navigate("/delete-profile", { state: { email } })}>
         Delete Profile
       </button>
     </div>
