@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { saveProfile, getProfileByEmail } from "../utils/localStorageUtil"; // Adjust the import path as necessary
@@ -30,7 +31,8 @@ const ProfileSchema = Yup.object().shape({
   favoriteColor: Yup.string().required("Favorite color is required"),
 });
 
-const CreateProfile = ({ history }) => {
+const CreateProfile = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <h1>Create Profile</h1>
@@ -48,26 +50,43 @@ const CreateProfile = ({ history }) => {
           setSubmitting(false);
           alert("Profile created successfully!");
           // Redirect to login or view profile page as needed
-          // history.push('/login');
+          // history.push('/login');test@test.com
+          navigate("/view-profile", { state: { email: values.email } });
         }}
       >
         {({ isSubmitting }) => (
           <Form>
             <label htmlFor="email">Email</label>
             <Field name="email" type="email" />
-            <ErrorMessage name="email" component="div" />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="errorMessage"
+            />
 
             <label htmlFor="password">Password</label>
             <Field name="password" type="password" />
-            <ErrorMessage name="password" component="div" />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="errorMessage"
+            />
 
             <label htmlFor="fullName">Full Name</label>
             <Field name="fullName" type="text" />
-            <ErrorMessage name="fullName" component="div" />
+            <ErrorMessage
+              name="fullName"
+              component="div"
+              className="errorMessage"
+            />
 
             <label htmlFor="phoneNumber">Phone Number</label>
             <Field name="phoneNumber" type="text" />
-            <ErrorMessage name="phoneNumber" component="div" />
+            <ErrorMessage
+              name="phoneNumber"
+              component="div"
+              className="errorMessage"
+            />
 
             <label htmlFor="favoriteColor">Favorite Color</label>
             <Field name="favoriteColor" as="select">
@@ -80,7 +99,11 @@ const CreateProfile = ({ history }) => {
               <option value="black">Black</option>
               <option value="orange">Orange</option>
             </Field>
-            <ErrorMessage name="favoriteColor" component="div" />
+            <ErrorMessage
+              name="favoriteColor"
+              component="div"
+              className="errorMessage"
+            />
 
             <button type="submit" disabled={isSubmitting}>
               Submit

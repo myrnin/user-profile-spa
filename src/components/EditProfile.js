@@ -1,7 +1,7 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
 import { saveProfile, getProfileByEmail } from "../utils/localStorageUtil"; // Adjust the import path as necessary
 
 // Validation Schema
@@ -28,16 +28,17 @@ const EditProfileSchema = Yup.object().shape({
   favoriteColor: Yup.string().required("Favorite color is required"),
 });
 
-const EditProfile = ({ userEmail }) => {
+const EditProfile = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log({ location });
+
+  const { email: userEmail } = location.state || {};
+
   const profile = getProfileByEmail(userEmail);
 
   if (!profile) {
-    return (
-      <div>
-        No profile found. Please ensure you are logged in to edit a profile.
-      </div>
-    );
+    return <div>No profile found</div>;
   }
 
   return (
@@ -56,7 +57,7 @@ const EditProfile = ({ userEmail }) => {
           saveProfile(values);
           setSubmitting(false);
           alert("Profile updated successfully!");
-          navigate("/view-profile"); // Redirect to the ViewProfile page or adjust as needed
+          navigate("/view-profile", { state: { email: profile.email } }); // Redirect to the ViewProfile page or adjust as needed
         }}
       >
         {({ isSubmitting }) => (
@@ -64,25 +65,41 @@ const EditProfile = ({ userEmail }) => {
             <div>
               <label htmlFor="email">Email</label>
               <Field name="email" type="email" disabled />
-              <ErrorMessage name="email" component="div" />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="errorMessage"
+              />
             </div>
 
             <div>
               <label htmlFor="password">Password</label>
               <Field name="password" type="password" />
-              <ErrorMessage name="password" component="div" />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="errorMessage"
+              />
             </div>
 
             <div>
               <label htmlFor="fullName">Full Name</label>
               <Field name="fullName" type="text" />
-              <ErrorMessage name="fullName" component="div" />
+              <ErrorMessage
+                name="fullName"
+                component="div"
+                className="errorMessage"
+              />
             </div>
 
             <div>
               <label htmlFor="phoneNumber">Phone Number</label>
               <Field name="phoneNumber" type="text" />
-              <ErrorMessage name="phoneNumber" component="div" />
+              <ErrorMessage
+                name="phoneNumber"
+                component="div"
+                className="errorMessage"
+              />
             </div>
 
             <div>
@@ -97,7 +114,11 @@ const EditProfile = ({ userEmail }) => {
                 <option value="black">Black</option>
                 <option value="orange">Orange</option>
               </Field>
-              <ErrorMessage name="favoriteColor" component="div" />
+              <ErrorMessage
+                name="favoriteColor"
+                component="div"
+                className="errorMessage"
+              />
             </div>
 
             <button type="submit" disabled={isSubmitting}>

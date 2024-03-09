@@ -22,10 +22,6 @@ const Login = () => {
       navigate("/view-profile", { state: { email: user.email } }); // Pass the user's email to ViewProfile component
     } else {
       setError("Invalid email or password.");
-      setTimeout(() => {
-        setError(""); // Clear the error after the timeout
-        navigate("/"); // Stay on the login page
-      }, 60000); // Session timeout of 60 seconds
     }
   };
 
@@ -54,9 +50,11 @@ const Login = () => {
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit">Login</button>
       </form>
-      <button onClick={() => navigate("/create-profile")}>
-        Create Profile
-      </button>
+      <div style={{ width: 500, margin: "auto" }}>
+        <button onClick={() => navigate("/create-profile")}>
+          Create Profile
+        </button>
+      </div>
     </div>
   );
 };

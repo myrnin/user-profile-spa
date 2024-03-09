@@ -4,6 +4,7 @@ import CreateProfile from "./components/CreateProfile";
 import ViewProfile from "./components/ViewProfile";
 import EditProfile from "./components/EditProfile";
 import DeleteProfile from "./components/DeleteProfile";
+import "./App.css";
 
 function App() {
   return (

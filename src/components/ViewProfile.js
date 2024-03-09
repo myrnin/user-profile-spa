@@ -5,7 +5,8 @@ import { getProfileByEmail } from "../utils/localStorageUtil"; // Adjust the imp
 const ViewProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { email: userEmail } = location.state || {}; // Default to an empty object if location.state is undefined
+  console.log({ location });
+  const { email: userEmail } = location.state || {};
 
   const profile = getProfileByEmail(userEmail);
 
@@ -21,7 +22,9 @@ const ViewProfile = () => {
       <p>Email: {email}</p>
       <p>Phone Number: {phoneNumber}</p>
       <p>Favorite Color: {favoriteColor}</p>
-      <button onClick={() => navigate("/edit-profile")}>Edit Profile</button>
+      <button onClick={() => navigate("/edit-profile", { state: { email } })}>
+        Edit Profile
+      </button>
       <button onClick={() => navigate("/delete-profile", { state: { email } })}>
         Delete Profile
       </button>
